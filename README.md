@@ -17,3 +17,8 @@
 
 
 scikit-learnが必要なのでpip install scikit-learnを環境に入れてください。
+
+
+![image](https://github.com/852wa/ComfyUI-ColorshiftColor/blob/master/example/samplecsc.gif)
+
+連番対応
