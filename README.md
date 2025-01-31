@@ -25,7 +25,8 @@ scikit-learnが必要なのでpip install scikit-learnを環境に入れてく�
 
 文字入力スペースの
 ##{"index": 0, "color": [0.0, 0.0, 1.0]}の##を外すと文字での色指定が出来ます。（,カンマ区切りで複数可能）  
-indexの数字とlock_color_numnの数字は合わせる必要があります。
+indexの数字とlock_color_numnの数字は合わせる必要があります。  
+単色バック動画を作りたい場合video combineで出力するとエンコードでノイズが乗ることがあるのでsave imageで連番保存したほうが良いです。
 
 ## update
 25.02.01 - mask機能の修正、CsCノードの高速化、exampleデータの見直し
