@@ -22,3 +22,9 @@ scikit-learnが必要なのでpip install scikit-learnを環境に入れてく�
 ![image](https://github.com/852wa/ComfyUI-ColorshiftColor/blob/master/example/samplecsc.gif)
 
 連番対応
+
+文字入力スペースの
+##{"index": 0, "color": [0.0, 0.0, 1.0]}の##を外すと文字での色指定が出来ます。（複数可能）
+
+## update
+25.02.01 - mask機能の修正、CsCノードの高速化、exampleデータの見直し
