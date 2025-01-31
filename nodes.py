@@ -178,7 +178,6 @@ class PaletteEditorNode:
         return torch.stack((h, s, v), dim=-1)
 
     def hsv_to_rgb(self, hsv):
-        # PyTorchで書き換え
         h, s, v = hsv.unbind(-1)
         
         c = v * s
@@ -202,7 +201,7 @@ class PaletteEditorNode:
                    saturation_random_enable, saturation_scale,
                    value_random_enable, value_scale,
                    lock_color_num="0,", mask_enable=False, 
-                   invert_mask=False, mask_type="lock", operations="[]"):
+                   invert_mask=False, operations="[]"):
         
         # デバイスを取得
         device = images.device
@@ -210,27 +209,29 @@ class PaletteEditorNode:
         index_maps = index_maps.to(device)
 
         batch_size = images.shape[0]
+        height = images.shape[1]
+        width = images.shape[2]
 
-        # If mask is not enabled, apply changes to the entire palette
+        # マスクの生成を改善
         if not mask_enable:
-            mask = torch.zeros(len(palette), dtype=torch.bool, device=device)
+            color_mask = torch.zeros(len(palette), dtype=torch.bool, device=device)
         else:
             try:
                 indices = [int(idx.strip()) for idx in lock_color_num.split(",") if idx.strip()]
-                mask = torch.zeros(len(palette), dtype=torch.bool, device=device)
+                color_mask = torch.zeros(len(palette), dtype=torch.bool, device=device)
                 for idx in indices:
                     if 0 <= idx < len(palette):
-                        mask[idx] = True
+                        color_mask[idx] = True
                 if invert_mask:
-                    mask = ~mask
+                    color_mask = ~color_mask
             except:
-                mask = torch.zeros(len(palette), dtype=torch.bool, device=device)
+                color_mask = torch.zeros(len(palette), dtype=torch.bool, device=device)
 
         current_hue = random.uniform(-180, 180) if hue_random_enable else hue_shift
         current_saturation = random.uniform(0, 5) if saturation_random_enable else saturation_scale
         current_value = random.uniform(0, 5) if value_random_enable else value_scale
 
-        modified_palette = self.edit_palette(palette, operations, mask,
+        modified_palette = self.edit_palette(palette, operations, color_mask,
                                           current_hue, current_saturation, current_value)
         
         # バッチ処理
@@ -239,27 +240,18 @@ class PaletteEditorNode:
         new_pixels = modified_palette[labels.long()]
         original_pixels = pixels.clone()
 
-        if mask_type == "change":
-            # Create pixel_mask based on color_mask
-            pixel_mask = torch.zeros_like(labels, dtype=torch.bool)
-            for i, is_masked in enumerate(mask):
-                if is_masked:
-                    pixel_mask[labels == i] = True
-            # Apply new_pixels to masked areas
-            pixels = torch.where(pixel_mask.unsqueeze(-1), new_pixels, original_pixels)
-        else:
-            # Create pixel_mask based on color_mask
-            pixel_mask = torch.zeros_like(labels, dtype=torch.bool)
-            for i, is_masked in enumerate(mask):
-                if is_masked:
-                    pixel_mask[labels == i] = True
-            # Apply new_pixels to non-masked areas
-            pixels = torch.where(pixel_mask.unsqueeze(-1), original_pixels, new_pixels)
+        # ピクセルマスクの生成（2D形式）
+        pixel_mask = torch.zeros((batch_size, height, width), dtype=torch.float32, device=device)
+        for i, is_masked in enumerate(color_mask):
+            pixel_mask[index_maps == i] = 1.0 if is_masked else 0.0
 
-        processed_images = pixels.reshape(images.shape)
+        # 画像の処理
+        pixels_mask = pixel_mask.reshape(batch_size, -1, 1).expand(-1, -1, 3)
+        processed_pixels = torch.where(pixels_mask > 0.5, original_pixels, new_pixels)
+        processed_images = processed_pixels.reshape(images.shape)
 
         random.seed(None)
-        return (processed_images, modified_palette, mask)
+        return (processed_images, modified_palette, pixel_mask)
 
     def edit_palette(self, palette, operations, mask,
                     hue_shift, saturation_scale, value_scale):
