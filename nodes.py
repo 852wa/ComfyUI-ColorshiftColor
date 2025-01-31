@@ -45,20 +45,8 @@ class ColorshiftColorNode:
         # デバイスを取得
         device = images.device
 
-        # バッチ処理のために画像をスタック
-        resized_images = F.interpolate(
-            images.permute(0, 3, 1, 2),
-            scale_factor=0.5,
-            mode="bilinear",
-            align_corners=False,
-        ).permute(0, 2, 3, 1)
-
-        batch_size, height, width, channels = (
-            resized_images.shape
-        )  # resized_imagesの形状を使用
-        pixels = resized_images.reshape(
-            batch_size, -1, 3
-        )  # resized_imagesの形状を元にpixelsを整形
+        batch_size, height, width, channels = images.shape  # imagesの形状を使用
+        pixels = images.reshape(batch_size, -1, 3)
 
         if palette_override is not None:
             palette = palette_override.to(device)
@@ -68,7 +56,19 @@ class ColorshiftColorNode:
             # 複数の画像に対して、それぞれでクラスタリングをすると、計算量も増えるし、パレットがずれる。
             # 解決策として、複数の画像を混ぜてクラスタリングを行う
             # 混ぜてクラスタリング
-            pixels_for_clustering = pixels.cpu().numpy().reshape(-1, 3)
+
+            # パレット生成時にのみリサイズ
+            resized_images = F.interpolate(
+                images.permute(0, 3, 1, 2),
+                scale_factor=0.5,
+                mode="bilinear",
+                align_corners=False,
+            ).permute(0, 2, 3, 1)
+
+            pixels_for_clustering = (
+                resized_images.reshape(batch_size, -1, 3).cpu().numpy().reshape(-1, 3)
+            )
+
             random_indices = np.random.choice(
                 pixels_for_clustering.shape[0],
                 size=int(pixels_for_clustering.shape[0] * sampling_rate),
