@@ -1,53 +1,153 @@
 {
-  "last_node_id": 40,
-  "last_link_id": 100,
+  "last_node_id": 88,
+  "last_link_id": 194,
   "nodes": [
     {
-      "id": 36,
-      "type": "MaskToImage",
+      "id": 83,
+      "type": "VHS_VideoCombine",
       "pos": [
-        153.61419677734375,
-        663.8946533203125
+        27.538118362426758,
+        -241.48638916015625
       ],
       "size": [
-        264.5999755859375,
-        26
+        792.4127197265625,
+        671.5822143554688
       ],
       "flags": {},
-      "order": 9,
+      "order": 7,
       "mode": 0,
       "inputs": [
         {
-          "name": "mask",
-          "type": "MASK",
-          "link": 87
+          "name": "images",
+          "type": "IMAGE",
+          "link": 181
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null,
+          "shape": 7
         }
       ],
       "outputs": [
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            88
-          ],
-          "slot_index": 0
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
         }
       ],
       "properties": {
-        "Node name for S&R": "MaskToImage"
+        "Node name for S&R": "VHS_VideoCombine"
       },
-      "widgets_values": []
+      "widgets_values": {
+        "frame_rate": 24,
+        "loop_count": 0,
+        "filename_prefix": "csc/v",
+        "format": "image/gif",
+        "pingpong": false,
+        "save_output": false,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "v_00005.gif",
+            "subfolder": "csc",
+            "type": "temp",
+            "format": "image/gif",
+            "frame_rate": 24,
+            "workflow": "v_00005.png",
+            "fullpath": "L:\\StabilityMatrix-win-x64\\Data\\Packages\\ComfyUI\\temp\\csc\\v_00005.gif"
+          },
+          "muted": false
+        }
+      },
+      "color": "#ffffff",
+      "bgcolor": "#ffffff"
     },
     {
-      "id": 6,
-      "type": "PreviewImage",
+      "id": 84,
+      "type": "SaveImage",
       "pos": [
-        -963.3030395507812,
-        353.0706787109375
+        -624.6519165039062,
+        -611.50390625
       ],
       "size": [
-        420.6363525390625,
-        246
+        315,
+        270
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 8,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 182
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "csc/i"
+      ]
+    },
+    {
+      "id": 87,
+      "type": "SaveImage",
+      "pos": [
+        -619.3278198242188,
+        -555.6027221679688
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 9,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 192
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "csc/i"
+      ]
+    },
+    {
+      "id": 82,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        -679.690185546875,
+        -274.1504821777344
+      ],
+      "size": [
+        683.270751953125,
+        708.2952270507812
       ],
       "flags": {},
       "order": 6,
@@ -56,7 +156,83 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 96
+          "link": 178
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 24,
+        "loop_count": 0,
+        "filename_prefix": "csc/v",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": false,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "v_00006.mp4",
+            "subfolder": "csc",
+            "type": "temp",
+            "format": "video/h264-mp4",
+            "frame_rate": 24,
+            "workflow": "v_00006.png",
+            "fullpath": "L:\\StabilityMatrix-win-x64\\Data\\Packages\\ComfyUI\\temp\\csc\\v_00006.mp4"
+          },
+          "muted": false
+        }
+      }
+    },
+    {
+      "id": 81,
+      "type": "PreviewImage",
+      "pos": [
+        -1200.9090576171875,
+        -260.3080139160156
+      ],
+      "size": [
+        425.6219482421875,
+        246
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 177
         }
       ],
       "outputs": [],
@@ -66,242 +242,24 @@
       "widgets_values": []
     },
     {
-      "id": 31,
-      "type": "VHS_VideoCombine",
-      "pos": [
-        -30.93109130859375,
-        1.1672286987304688
-      ],
-      "size": [
-        506.576904296875,
-        612.041748046875
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 73
-        },
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "meta_batch",
-          "type": "VHS_BatchManager",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": null,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Filenames",
-          "type": "VHS_FILENAMES",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VHS_VideoCombine"
-      },
-      "widgets_values": {
-        "frame_rate": 24,
-        "loop_count": 0,
-        "filename_prefix": "CsC/video",
-        "format": "video/h264-mp4",
-        "pix_fmt": "yuv420p",
-        "crf": 19,
-        "save_metadata": true,
-        "trim_to_audio": false,
-        "pingpong": false,
-        "save_output": false,
-        "videopreview": {
-          "hidden": false,
-          "paused": false,
-          "params": {
-            "filename": "video_00009.mp4",
-            "subfolder": "CsC",
-            "type": "temp",
-            "format": "video/h264-mp4",
-            "frame_rate": 24,
-            "workflow": "video_00009.png",
-            "fullpath": "L:\\StabilityMatrix-win-x64\\Data\\Packages\\ComfyUI\\temp\\CsC\\video_00009.mp4"
-          },
-          "muted": false
-        }
-      }
-    },
-    {
-      "id": 37,
-      "type": "VHS_VideoCombine",
-      "pos": [
-        491.796142578125,
-        -3.3779964447021484
-      ],
-      "size": [
-        506.576904296875,
-        612.041748046875
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 88
-        },
-        {
-          "name": "audio",
-          "type": "AUDIO",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "meta_batch",
-          "type": "VHS_BatchManager",
-          "link": null,
-          "shape": 7
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": null,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "Filenames",
-          "type": "VHS_FILENAMES",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VHS_VideoCombine"
-      },
-      "widgets_values": {
-        "frame_rate": 24,
-        "loop_count": 0,
-        "filename_prefix": "CsC/video",
-        "format": "video/h264-mp4",
-        "pix_fmt": "yuv420p",
-        "crf": 19,
-        "save_metadata": true,
-        "trim_to_audio": false,
-        "pingpong": false,
-        "save_output": false,
-        "videopreview": {
-          "hidden": false,
-          "paused": false,
-          "params": {
-            "filename": "video_00010.mp4",
-            "subfolder": "CsC",
-            "type": "temp",
-            "format": "video/h264-mp4",
-            "frame_rate": 24,
-            "workflow": "video_00010.png",
-            "fullpath": "L:\\StabilityMatrix-win-x64\\Data\\Packages\\ComfyUI\\temp\\CsC\\video_00010.mp4"
-          },
-          "muted": false
-        }
-      }
-    },
-    {
-      "id": 35,
-      "type": "SaveImage",
-      "pos": [
-        -28.20367431640625,
-        -120.65087890625
-      ],
-      "size": [
-        315,
-        58
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 4,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 82
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "SaveImage"
-      },
-      "widgets_values": [
-        "CsC/image"
-      ]
-    },
-    {
-      "id": 38,
-      "type": "LoadImage",
-      "pos": [
-        -1127.6846923828125,
-        -170.40516662597656
-      ],
-      "size": [
-        315,
-        314
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 0,
-      "mode": 4,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": []
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoadImage"
-      },
-      "widgets_values": [
-        "sample0.png",
-        "image"
-      ]
-    },
-    {
-      "id": 33,
+      "id": 86,
       "type": "ImageScaleBy",
       "pos": [
-        -499.11279296875,
-        -173.07089233398438
+        -1626.09619140625,
+        195.21435546875
       ],
       "size": [
         315,
         82
       ],
       "flags": {},
-      "order": 3,
-      "mode": 4,
+      "order": 2,
+      "mode": 0,
       "inputs": [
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 100
+          "link": 190
         }
       ],
       "outputs": [
@@ -309,7 +267,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            99
+            191
           ],
           "slot_index": 0
         }
@@ -323,18 +281,18 @@
       ]
     },
     {
-      "id": 28,
+      "id": 75,
       "type": "VHS_LoadVideo",
       "pos": [
-        -969.1126708984375,
-        -182.4691162109375
+        -1585.3043212890625,
+        -313.68109130859375
       ],
       "size": [
-        415.63690185546875,
-        491.0744323730469
+        247.455078125,
+        399.24658203125
       ],
       "flags": {},
-      "order": 1,
+      "order": 0,
       "mode": 0,
       "inputs": [
         {
@@ -355,7 +313,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            100
+            190
           ],
           "slot_index": 0
         },
@@ -405,24 +363,24 @@
       }
     },
     {
-      "id": 39,
+      "id": 77,
       "type": "ColorshiftColor",
       "pos": [
-        -520.2642822265625,
-        -15.525081634521484
+        -1198.7801513671875,
+        -503.08245849609375
       ],
       "size": [
         405.5999755859375,
         190
       ],
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 99
+          "link": 191
         },
         {
           "name": "lock_masks",
@@ -442,22 +400,22 @@
           "name": "images",
           "type": "IMAGE",
           "links": [
-            97
-          ],
-          "slot_index": 0
+            193
+          ]
         },
         {
           "name": "palette",
           "type": "PALETTE",
           "links": [
-            98
-          ]
+            194
+          ],
+          "slot_index": 1
         },
         {
           "name": "index_maps",
           "type": "MASK",
           "links": [
-            94
+            174
           ],
           "slot_index": 2
         },
@@ -465,7 +423,7 @@
           "name": "palette_preview",
           "type": "IMAGE",
           "links": [
-            96
+            177
           ],
           "slot_index": 3
         }
@@ -476,102 +434,87 @@
       "widgets_values": [
         8,
         50,
-        0.25,
+        0.5,
         3
       ]
     },
     {
-      "id": 30,
-      "type": "CsCPaletteEditor",
+      "id": 78,
+      "type": "CsCFill",
       "pos": [
-        -515.4761962890625,
-        266.62176513671875
+        -1181.0784912109375,
+        75.37015533447266
       ],
       "size": [
-        413.63641357421875,
-        414.54547119140625
+        342.44488525390625,
+        155.46630859375
       ],
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 97
+          "link": 193
         },
         {
           "name": "palette",
           "type": "PALETTE",
-          "link": 98
+          "link": 194
         },
         {
           "name": "index_maps",
           "type": "MASK",
-          "link": 94
+          "link": 174
         }
       ],
       "outputs": [
         {
-          "name": "images",
+          "name": "filled_image",
           "type": "IMAGE",
           "links": [
-            73,
-            82
+            178
           ],
           "slot_index": 0
         },
         {
-          "name": "palette",
-          "type": "PALETTE",
-          "links": null
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
+          "name": "mask_image",
+          "type": "IMAGE",
           "links": [
-            87
+            181,
+            182,
+            192
           ],
-          "slot_index": 2
+          "slot_index": 1
         }
       ],
       "properties": {
-        "Node name for S&R": "CsCPaletteEditor"
+        "Node name for S&R": "CsCFill"
       },
       "widgets_values": [
-        216547112897537,
-        "randomize",
-        true,
-        0,
-        false,
-        1,
-        false,
-        1,
-        "0",
-        true,
-        true,
-        "[\n##{\"index\": 0, \"color\": [0.0, 0.0, 1.0]}\n]\n"
+        "[\n{ \"A\": 1,\"B\": 3 },\n{ \"A\": 2,\"B\": 5 },\n{ \"A\": 4,\"B\": 7 }\n]"
       ]
     },
     {
-      "id": 40,
+      "id": 88,
       "type": "Note",
       "pos": [
-        -497.670654296875,
-        715.5738525390625
+        -1177.139404296875,
+        289.988037109375
       ],
       "size": [
-        383.99993896484375,
-        153.99998474121094
+        381.9293212890625,
+        159.34671020507812
       ],
       "flags": {},
-      "order": 2,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "##{\"index\": 0, \"color\": [0.0, 0.0, 1.0]}\nの##を外すと文字での色指定が出来ます。（,カンマ区切りで複数指定可能）\nindexの数字とlock_color_numの数字は合わせる必要があります。\n\n\nWhen you remove the ## from {\"index\": 0, \"color\": [0.0, 0.0, 1.0]}, you can specify colors as text. (Multiple specifications can be made using commas as separators.)\nThe number in \"index\" needs to match the number in \"lock_color_num\"."
+        "Normally, approximate values are paired to determine fill color A and shadow color B, but by writing the string { \"A\": 0, \"B\": 1 } within [], you can specify the behavior where A fills in B. The numbers correspond to the numbers in the palette preview.\n(Multiple specifications can be made using commas as separators.)\n\n通常は近似値をペアにし、塗りつぶし色Aと影色Bを確定させますが、\n[]内に\n{ \"A\": 0,\"B\": 1 }\nという文字列を記載することで、AでBを塗りつぶすという指定挙動をします。\n数字はパレットプレビューの数字です。\n（,カンマ区切りで複数指定可能）"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -579,84 +522,84 @@
   ],
   "links": [
     [
-      73,
-      30,
-      0,
-      31,
-      0,
-      "IMAGE"
-    ],
-    [
-      82,
-      30,
-      0,
-      35,
-      0,
-      "IMAGE"
-    ],
-    [
-      87,
-      30,
+      174,
+      77,
       2,
-      36,
-      0,
-      "MASK"
-    ],
-    [
-      88,
-      36,
-      0,
-      37,
-      0,
-      "IMAGE"
-    ],
-    [
-      94,
-      39,
-      2,
-      30,
+      78,
       2,
       "MASK"
     ],
     [
-      96,
-      39,
+      177,
+      77,
       3,
-      6,
+      81,
       0,
       "IMAGE"
     ],
     [
-      97,
-      39,
+      178,
+      78,
       0,
-      30,
+      82,
       0,
       "IMAGE"
     ],
     [
-      98,
-      39,
+      181,
+      78,
       1,
-      30,
+      83,
+      0,
+      "IMAGE"
+    ],
+    [
+      182,
+      78,
+      1,
+      84,
+      0,
+      "IMAGE"
+    ],
+    [
+      190,
+      75,
+      0,
+      86,
+      0,
+      "IMAGE"
+    ],
+    [
+      191,
+      86,
+      0,
+      77,
+      0,
+      "IMAGE"
+    ],
+    [
+      192,
+      78,
+      1,
+      87,
+      0,
+      "IMAGE"
+    ],
+    [
+      193,
+      77,
+      0,
+      78,
+      0,
+      "IMAGE"
+    ],
+    [
+      194,
+      77,
+      1,
+      78,
       1,
       "PALETTE"
-    ],
-    [
-      99,
-      33,
-      0,
-      39,
-      0,
-      "IMAGE"
-    ],
-    [
-      100,
-      28,
-      0,
-      33,
-      0,
-      "IMAGE"
     ]
   ],
   "groups": [],
@@ -665,13 +608,13 @@
     "ds": {
       "scale": 0.9090909090909091,
       "offset": [
-        873.2800863285294,
-        -104.16758690023242
+        1774.2802236576324,
+        382.83243751383037
       ]
     },
     "node_versions": {
-      "comfy-core": "0.3.12",
       "ComfyUI-VideoHelperSuite": "f24f4e10f448913eb8c0d8ce5ff6190a8be84454",
+      "comfy-core": "0.3.12",
       "colorshiftcolor": "1.0.1"
     },
     "ue_links": [],

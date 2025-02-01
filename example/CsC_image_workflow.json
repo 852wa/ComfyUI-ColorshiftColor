@@ -1,5 +1,5 @@
 {
-  "last_node_id": 39,
+  "last_node_id": 40,
   "last_link_id": 101,
   "nodes": [
     {
@@ -14,7 +14,7 @@
         246
       ],
       "flags": {},
-      "order": 4,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
@@ -41,7 +41,7 @@
         82
       ],
       "flags": {},
-      "order": 1,
+      "order": 2,
       "mode": 4,
       "inputs": [
         {
@@ -80,7 +80,7 @@
         190
       ],
       "flags": {},
-      "order": 2,
+      "order": 3,
       "mode": 0,
       "inputs": [
         {
@@ -196,7 +196,7 @@
         799.97998046875
       ],
       "flags": {},
-      "order": 5,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -225,7 +225,7 @@
         414.54547119140625
       ],
       "flags": {},
-      "order": 3,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -269,7 +269,7 @@
         "Node name for S&R": "CsCPaletteEditor"
       },
       "widgets_values": [
-        184860448017767,
+        821705875976707,
         "randomize",
         true,
         0,
@@ -277,11 +277,34 @@
         1,
         false,
         1,
-        "0,5",
+        "0,6",
         true,
         true,
         "[\n##{\"index\": 0, \"color\": [0.0, 0.0, 1.0]}\n]\n"
       ]
+    },
+    {
+      "id": 40,
+      "type": "Note",
+      "pos": [
+        -507.6708679199219,
+        736.5737915039062
+      ],
+      "size": [
+        383.99993896484375,
+        153.99998474121094
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "##{\"index\": 0, \"color\": [0.0, 0.0, 1.0]}\nの##を外すと文字での色指定が出来ます。（,カンマ区切りで複数指定可能）\nindexの数字とlock_color_numの数字は合わせる必要があります。\n\n\nWhen you remove the ## from {\"index\": 0, \"color\": [0.0, 0.0, 1.0]}, you can specify colors as text. (Multiple specifications can be made using commas as separators.)\nThe number in \"index\" needs to match the number in \"lock_color_num\"."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -346,14 +369,15 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7513148009015777,
+      "scale": 0.9090909090909091,
       "offset": [
-        1147.781665991975,
-        307.6266463226319
+        1122.28019924357,
+        -218.16757469320092
       ]
     },
     "node_versions": {
-      "comfy-core": "0.3.12"
+      "comfy-core": "0.3.12",
+      "colorshiftcolor": "1.0.1"
     },
     "ue_links": [],
     "VHS_latentpreview": false,
