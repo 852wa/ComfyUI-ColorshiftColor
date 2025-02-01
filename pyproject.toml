@@ -1,7 +1,7 @@
 [project]
 name = "colorshiftcolor"
 description = "This is a custom node for ComfyUI.\nIt reduces colors based on a specified number and allows for adjustments to hue, saturation, and brightness.\nFeatures:Each parameter can be set to random, You can toggle masking (not changing colors) using color numbers, Mask inversion can also be toggled on or off."
-version = "1.0.1"
+version = "1.1.0"
 license = {file = "LICENSE"}
 dependencies = ["torch", "numpy", "scikit-learn", "Pillow"]
 
