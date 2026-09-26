@@ -44,3 +44,22 @@ ComfyUI本体の画面操作、動画デコード・エンコードを含むワ�
 導入用ZIPには `ComfyUI-ColorshiftColor` フォルダーが入っています。既存版をバックアップしたうえでComfyUIの `custom_nodes` 配下へ配置し、READMEの依存パッケージ導入手順に従って再起動してください。
 
 この変更はローカルで実装・検証したものです。GitHubへのpush、PR作成、Comfy Registryへの公開は実施していません。
+
+---
+
+## 2026-09-26 追加修正（v1.2.1）
+
+基準コミット: `62bcdc9`（上記の改善を取り込んだ master）
+
+作業ブランチ: `fix/palette-preview-labels`
+
+1. パレットプレビューの番号が全て0番のマスに重なって描画される不具合を修正しました。`textbbox` を各マスの座標で測った値から、さらにその座標を引いていたため、全番号が左上へ寄っていました。原点で測った字形のオフセットだけを差し引くように変更しています。
+2. Arialがない環境（macOS / Linux）では `font_size` が無視され、10px固定の既定フォントになっていました。DejaVu Sans などの代替フォント、Pillow 10.1以降のサイズ指定付き既定フォントの順に使うようにしました。
+3. READMEに記載していたLinux / WindowsのCPUテスト用GitHub Actions（`.github/workflows/tests.yml`）を追加しました。
+4. `nodes.py` のCRLF/LF混在をLFに統一しました（内容変更なし、別コミット）。
+
+上記1・2の回帰テストを追加し、修正前のコードで失敗・修正後に成功することを確認しました。
+
+`python -m unittest discover -s tests -v`: **29テスト成功、CUDAテスト1件スキップ**（Linux / Python 3.11 / PyTorch 2.14 CPU / Pillow 12.2 / scikit-learn 1.8）。
+
+48フレーム×512×768のバッチで、減色約2.0秒・パレット編集約1.7秒・塗りつぶし約2.2秒（CPU）でした。

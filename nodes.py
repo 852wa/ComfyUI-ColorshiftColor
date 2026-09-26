@@ -68,6 +68,20 @@ def _color_triplet(value, palette, name):
     return color
 
 
+def _load_font(font_size):
+    # Arial exists on Windows only; fall back to other common fonts, then Pillow's
+    # scalable default (Pillow >= 10.1) so font_size is honored on macOS/Linux too.
+    for name in ("arial.ttf", "Arial.ttf", "DejaVuSans.ttf", "Helvetica.ttc"):
+        try:
+            return ImageFont.truetype(name, font_size)
+        except OSError:
+            pass
+    try:
+        return ImageFont.load_default(size=font_size)
+    except TypeError:
+        return ImageFont.load_default()
+
+
 class ColorshiftColorNode:
     @classmethod
     def INPUT_TYPES(cls):
@@ -171,10 +185,7 @@ class ColorshiftColorNode:
         img = Image.new("RGB", (cols * patch_size, rows * patch_size), (40, 40, 40))
         draw = ImageDraw.Draw(img)
 
-        try:
-            font = ImageFont.truetype("arial.ttf", font_size)
-        except OSError:
-            font = ImageFont.load_default()
+        font = _load_font(font_size)
 
         for i, color in enumerate(colors):
             x = (i % cols) * patch_size
@@ -182,11 +193,12 @@ class ColorshiftColorNode:
 
             draw.rectangle([x, y, x + patch_size - 1, y + patch_size - 1], fill=tuple((color * 255).clip(0, 255).astype(int)))
             text = str(i)
-            bbox = draw.textbbox((x, y), text, font=font)
-            text_w = bbox[2] - bbox[0]
-            text_h = bbox[3] - bbox[1]
+            # Measure at the origin so the bbox offset is relative to the glyph, not the patch.
+            left, top, right, bottom = draw.textbbox((0, 0), text, font=font)
+            text_x = x + (patch_size - (right - left)) // 2 - left
+            text_y = y + (patch_size - (bottom - top)) // 2 - top
             text_color = "black" if np.dot(color, [0.2126, 0.7152, 0.0722]) > 0.5 else "white"
-            draw.text((x + (patch_size - text_w) // 2 - bbox[0], y + (patch_size - text_h) // 2 - bbox[1]), text, fill=text_color, font=font)
+            draw.text((text_x, text_y), text, fill=text_color, font=font)
 
         img_tensor = torch.from_numpy(np.array(img).astype(np.float32) / 255.0).unsqueeze(0)
         return img_tensor

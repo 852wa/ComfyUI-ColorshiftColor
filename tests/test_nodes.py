@@ -224,6 +224,22 @@ class RegressionTests(unittest.TestCase):
         self.assertEqual(preview.shape, (1, 100, 800, 3))
         self.assertLess(preview[0, 25:75, 25:75].min().item(), .5)
 
+    def test_preview_labels_every_patch_in_place(self):
+        # Every patch must carry its own number; previously all labels stacked on patch 0.
+        preview = ColorshiftColorNode().generate_palette_preview(torch.ones(12, 3), 30)
+        self.assertEqual(preview.shape, (1, 200, 800, 3))
+        for i in range(12):
+            x, y = (i % 8) * 100, (i // 8) * 100
+            with self.subTest(patch=i):
+                self.assertLess(preview[0, y + 20:y + 80, x + 20:x + 80].min().item(), .5)
+                self.assertEqual(preview[0, y:y + 10, x:x + 100].min().item(), 1.)
+
+    def test_preview_font_size_is_honored(self):
+        def ink(size):
+            preview = ColorshiftColorNode().generate_palette_preview(torch.ones(1, 3), size)
+            return (preview[0, :, :100] < .5).any(-1).sum().item()
+        self.assertGreater(ink(50), ink(10) * 4)
+
     @unittest.skipUnless(torch.cuda.is_available(), 'CUDA is not available')
     def test_all_nodes_on_cuda_with_cpu_auxiliary_inputs(self):
         for dtype in (torch.float32, torch.float16, torch.bfloat16):
